@@ -19,8 +19,10 @@
     <properties>
         <project.version>1.0-SNAPSHOT</project.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>21</java.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.release>21</maven.compiler.release>
 
         <spring-cloud.version>2024.0.1</spring-cloud.version>
         <spring-cloud-alibaba.version>2023.0.3.3</spring-cloud-alibaba.version>
@@ -29,6 +31,8 @@
         <mysql.version>9.1.0</mysql.version>
         <lombok.version>1.18.34</lombok.version>
         <hutool.version>5.8.32</hutool.version>
+        <jjwt.version>0.12.6</jjwt.version>
+        <easyexcel.version>4.0.3</easyexcel.version>
     </properties>
 
     <modules>
@@ -72,6 +76,11 @@
                 <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-jsqlparser</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>com.mysql</groupId>
@@ -95,6 +104,22 @@
                 <groupId>org.example</groupId>
                 <artifactId>demo-feign-client</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jjwt.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

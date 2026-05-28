@@ -4,6 +4,12 @@ server:
 spring:
   main:
     web-application-type: reactive
+  data:
+    redis:
+      host: ${REDIS_HOST:127.0.0.1}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:redis_cool}
+      timeout: 3000ms
   cloud:
     gateway:
       discovery:
@@ -27,6 +33,15 @@ spring:
           uri: lb://boot-ai
           predicates:
             - Path=/ai/**
+
+auth:
+  jwt:
+    secret: ${JWT_SECRET:natural-demo-jwt-secret-key-please-replace-me-32+chars}
+    ttl-seconds: 86400
+  whitelist:
+    # 白名单：登录、健康检查、AI 流式（演示用）
+    - /user/auth/login
+    - /actuator/**
 
 management:
   endpoints:

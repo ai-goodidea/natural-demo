@@ -1,0 +1,62 @@
+server:
+  port: 7001
+spring:
+  application:
+    name: boot-gateway
+  main:
+    allow-bean-definition-overriding: true
+    web-application-type: reactive
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: sys
+              uri: lb://sys-server
+              predicates:
+                - Path=/sys/**
+              filters:
+                - StripPrefix=1
+          discovery:
+            locator:
+              enabled: true #开启从注册中心动态创建路由的功能
+              lower-case-service-id: true #使用小写服务名，默认是大写
+              filters:
+                - StripPrefix=1
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${JWT_ISSUER_URI:#{null}}
+          jwk-set-uri: ${JWT_JWK_SET_URI:#{null}}
+          public-key-location: classpath:public.txt
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: 6000
+      lettuce:
+        pool:
+          max-idle: 500
+          min-idle: 50
+          max-active: 2000
+          max-wait: 1000
+      database: 3
+idea:
+  security:
+    ignore:
+      urls:
+        - /*/public/**
+        - /auth/oauth/**
+        - /message/message/sendVerifyCode
+logging:
+  level:
+    org.alibaba.nacos: DEBUG
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    refresh:
+      enabled: true

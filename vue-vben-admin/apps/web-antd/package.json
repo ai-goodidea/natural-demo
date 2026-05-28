@@ -1,0 +1,68 @@
+{
+  "name": "@vben/web-antd",
+  "version": "5.6.0",
+  "homepage": "https://vben.pro",
+  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
+    "directory": "apps/web-antd"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "vben",
+    "email": "ann.vben@gmail.com",
+    "url": "https://github.com/anncwb"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "pnpm vite build --mode production",
+    "build:analyze": "pnpm vite build --mode analyze",
+    "dev": "pnpm vite --mode development",
+    "preview": "vite preview",
+    "typecheck": "vue-tsc --noEmit --skipLibCheck"
+  },
+  "imports": {
+    "#/*": "./src/*"
+  },
+  "dependencies": {
+    "@ant-design/icons-vue": "catalog:",
+    "@codemirror/autocomplete": "catalog:",
+    "@codemirror/basic-setup": "catalog:",
+    "@codemirror/commands": "catalog:",
+    "@codemirror/lang-javascript": "catalog:",
+    "@codemirror/lang-yaml": "catalog:",
+    "@codemirror/search": "catalog:",
+    "@codemirror/state": "catalog:",
+    "@codemirror/theme-one-dark": "catalog:",
+    "@codemirror/view": "catalog:",
+    "@iconify/vue": "catalog:",
+    "@vben/access": "workspace:*",
+    "@vben/common-ui": "workspace:*",
+    "@vben/constants": "workspace:*",
+    "@vben/hooks": "workspace:*",
+    "@vben/icons": "workspace:*",
+    "@vben/layouts": "workspace:*",
+    "@vben/locales": "workspace:*",
+    "@vben/plugins": "workspace:*",
+    "@vben/preferences": "workspace:*",
+    "@vben/request": "workspace:*",
+    "@vben/stores": "workspace:*",
+    "@vben/styles": "workspace:*",
+    "@vben/types": "workspace:*",
+    "@vben/utils": "workspace:*",
+    "@vueuse/core": "catalog:",
+    "ant-design-vue": "catalog:",
+    "dayjs": "catalog:",
+    "echarts": "catalog:",
+    "json-editor-vue3": "catalog:",
+    "md5": "catalog:",
+    "pinia": "catalog:",
+    "vue": "catalog:",
+    "vue-cropper": "catalog:",
+    "vue-router": "catalog:"
+  },
+  "devDependencies": {
+    "@types/md5": "catalog:"
+  }
+}

@@ -1,0 +1,6 @@
+spring:
+  data:
+    redis:
+      host: redis
+      password: redis_cool
+      port: 6379

@@ -35,5 +35,19 @@ build/
 ### VS Code ###
 .vscode/
 
+### IntelliJ IDEA (full dir) ###
+.idea/
+
+### Claude Code local ###
+.claude/
+**/.claude/
+
+### Runtime logs ###
+logs/
+*.log
+
+### Misc / accidental ###
+natural-demo/
+
 ### Mac OS ###
 .DS_Store

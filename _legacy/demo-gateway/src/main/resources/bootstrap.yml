@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: boot-gateway
+  profiles:
+    active: ${SPRING_ACTIVE:dev}
+  config:
+    import:
+      - nacos:${spring.application.name}-${spring.profiles.active}.yaml?group=DEFAULT_GROUP
+  cloud:
+    nacos:
+      server-addr: ${NACOS_SERVER:172.17.0.1:8848}
+      username: ${NACOS_USERNAME:nacos}
+      password: ${NACOS_PASSWORD:nacos}
+      namespace: ${NACOS_NAMESPACE:public}
+      discovery:
+        group: DEFAULT_GROUP
+      config:
+        group: DEFAULT_GROUP
+        refresh-enabled: true

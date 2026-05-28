@@ -1,0 +1,6 @@
+spring:
+  data:
+    redis:
+      host: 192.168.8.110
+      password: difyai123456
+      port: 6379

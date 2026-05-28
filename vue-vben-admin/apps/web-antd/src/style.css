@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.debug-card-body {
+  width: 450px;
+  height: calc(100vh - 128px);
+  overflow-y: auto;
+  margin: -12px;
+  padding: 10px;
+}
+.variable-card-body {
+  width: 450px;
+  height: calc(100vh - 128px);
+  overflow-y: auto;
+  margin: -12px;
+  padding: 10px;
+}
+.config-card-body {
+  width: 450px;
+  max-height: calc(100vh - 128px);
+  overflow-y: auto;
+  margin: -12px;
+  padding: 10px;
+}
+
+.wf-node{
+  background: hsl(var(--background));
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  width: 300px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
+  position: relative;
+}
+
+.wf-node:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  border-color: #6366f1;
+}
+
+.wf-node-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.wf-node-icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  color: white;
+}
+
+.wf-node-icon :deep(.icon) {
+  width: 20px;
+  height: 20px;
+}
+
+.wf-node-toolbar {
+  position: absolute;
+  top: -30px;
+  right: 1px;
+  display: flex;
+  gap: 4px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+.wf-toolbar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.wf-toolbar-btn:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.wf-node-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.wf-node-subtitle{
+  font-size: 12px;
+  font-weight: 500;
+}

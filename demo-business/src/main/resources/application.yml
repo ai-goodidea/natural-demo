@@ -1,0 +1,38 @@
+server:
+  port: 7103
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST:127.0.0.1}:${MYSQL_PORT:3306}/demo_business?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:mysql@cool}
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+feign:
+  circuitbreaker:
+    enabled: true
+  client:
+    config:
+      default:
+        connect-timeout: 5000
+        read-timeout: 60000
+        logger-level: basic
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      default:
+        sliding-window-size: 10
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10s
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

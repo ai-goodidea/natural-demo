@@ -1,0 +1,19 @@
+server:
+  port: 7104
+
+spring:
+  ai:
+    openai:
+      # DeepSeek 走 OpenAI 兼容协议，base-url 末尾不要带 /v1，starter 内部会自动拼
+      api-key: ${DEEPSEEK_API_KEY:sk-b2ad3e682f3243989d624d35ca8f3c35}
+      base-url: ${DEEPSEEK_BASE_URL:https://api.deepseek.com}
+      chat:
+        options:
+          model: ${DEEPSEEK_MODEL:deepseek-chat}
+          temperature: 0.7
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

@@ -1,0 +1,189 @@
+.ant-drawer ,.ant-card ,.ant-app,.ant-modal,.ant-popover ,.font-bold{
+  font-family:
+    -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    "Noto Sans CJK SC", "Source Han Sans SC", /* 思源黑体 */
+    "PingFang SC", "Hiragino Sans GB", /* macOS/iOS 中文 */
+    "Microsoft YaHei", "微软雅黑", /* Windows 中文 */
+    sans-serif !important; /* 确保覆盖 Ant Design */
+}
+.bg-theme{
+  background-color:  hsl(var(--background));
+}
+
+.text-primary{
+  color: hsl(var(--primary));
+}
+.bg-primary{
+  background-color: hsl(var(--primary));
+}
+/* 透明叠加：直接用 hsl(... / α)，兼容 Chrome 65+ / Firefox 52+ / Safari 12.1+ */
+.bg-primary-light{
+  background-color: hsl(var(--primary) / 0.1);
+}
+.border-primary{
+  border-color: hsl(var(--primary));
+}
+
+.border-primary-light{
+  border-color: hsl(var(--primary));
+}
+
+.hover\:border-primary-light:hover {
+  border-color: hsl(var(--primary) / 0.2);
+}
+/* relative color syntax 仅 Chrome 119+ 支持，先给一个透明度版本兜底 */
+.hover\:border-primary:hover {
+  border-color: hsl(var(--primary) / 0.7);
+  border-color: hsl(from var(--primary) h s 70%);
+}
+
+.hover\:bg-primary:hover{
+  background-color: hsl(var(--primary));
+}
+
+.hover\:bg-primary-light:hover{
+  background-color: hsl(var(--primary) / 0.3);
+}
+
+.bg-primary-soft{
+  background-color: hsl(var(--primary) / 0.1) !important;
+}
+.bg-primary-softer{
+  background-color: hsl(var(--primary) / 0.05) !important;
+}
+
+/* 与白色混合得到的实色浅色（带白底感，不透明）
+   color-mix 需要 Chrome 111+；前面 hsl(... / α) 是兜底，
+   老内核解析 color-mix 失败时回退到透明叠加。 */
+.bg-primary-lighter{
+  background-color: hsl(var(--primary) / 0.3) !important;
+  background-color: color-mix(in srgb, hsl(var(--primary)), #fff 70%) !important;
+}
+.bg-primary-pale{
+  background-color: hsl(var(--primary) / 0.15) !important;
+  background-color: color-mix(in srgb, hsl(var(--primary)), #fff 85%) !important;
+}
+.bg-primary-paler{
+  background-color: hsl(var(--primary) / 0.07) !important;
+  background-color: color-mix(in srgb, hsl(var(--primary)), #fff 93%) !important;
+}
+
+/* 文本浅色（用于在浅色底上的次级强调） */
+.text-primary-light{
+  color: hsl(var(--primary) / 0.75) !important;
+  color: color-mix(in srgb, hsl(var(--primary)), #fff 25%) !important;
+}
+.text-primary-lighter{
+  color: hsl(var(--primary) / 0.55) !important;
+  color: color-mix(in srgb, hsl(var(--primary)), #fff 45%) !important;
+}
+
+/* 浅色边框 */
+.border-primary-pale{
+  border-color: hsl(var(--primary) / 0.2) !important;
+  border-color: color-mix(in srgb, hsl(var(--primary)), #fff 80%) !important;
+}
+
+.bg-primary-gradient{
+  background-image: linear-gradient(135deg,
+    hsl(var(--primary)) 0%,
+    hsl(var(--primary) / 0.85) 100%) !important;
+  background-image: linear-gradient(135deg,
+    hsl(var(--primary)) 0%,
+    color-mix(in srgb, hsl(var(--primary)), #000 18%) 100%) !important;
+}
+.bg-primary-gradient-br{
+  background-image: linear-gradient(to bottom right,
+    hsl(var(--primary)) 0%,
+    hsl(var(--primary) / 0.8) 100%) !important;
+  background-image: linear-gradient(to bottom right,
+    hsl(var(--primary)) 0%,
+    color-mix(in srgb, hsl(var(--primary)), #000 22%) 100%) !important;
+}
+.bg-primary-gradient-hero{
+  background-image: linear-gradient(135deg,
+    hsl(var(--primary)) 0%,
+    hsl(var(--primary)) 50%,
+    hsl(var(--primary) / 0.8) 100%) !important;
+  background-image: linear-gradient(135deg,
+    color-mix(in srgb, hsl(var(--primary)), #fff 8%) 0%,
+    hsl(var(--primary)) 50%,
+    color-mix(in srgb, hsl(var(--primary)), #000 20%) 100%) !important;
+}
+/* 这个本来就是透明叠加，直接换成 hsl(... / α)，连 color-mix 都不再需要 */
+.bg-primary-gradient-page{
+  background-image: linear-gradient(135deg,
+    hsl(var(--primary) / 0.04) 0%,
+    hsl(var(--primary) / 0.08) 50%,
+    hsl(var(--primary) / 0.03) 100%) !important;
+}
+
+/* 轻盈渐变：用于不希望太浓重的卡片头部 / banner */
+.bg-primary-gradient-light{
+  background-image: linear-gradient(135deg,
+    hsl(var(--primary) / 0.22) 0%,
+    hsl(var(--primary) / 0.45) 100%) !important;
+  background-image: linear-gradient(135deg,
+    color-mix(in srgb, hsl(var(--primary)), #fff 78%) 0%,
+    color-mix(in srgb, hsl(var(--primary)), #fff 55%) 100%) !important;
+}
+.bg-primary-gradient-pale{
+  background-image: linear-gradient(135deg,
+    hsl(var(--primary) / 0.08) 0%,
+    hsl(var(--primary) / 0.2) 100%) !important;
+  background-image: linear-gradient(135deg,
+    color-mix(in srgb, hsl(var(--primary)), #fff 92%) 0%,
+    color-mix(in srgb, hsl(var(--primary)), #fff 80%) 100%) !important;
+}
+
+/* 在抽屉里打开的 Modal：把 wrap 与对应的 mask 全部抬到抽屉之上 */
+.grade-subject-modal-wrap {
+  z-index: 10000 !important;
+}
+/* 该 Modal 对应的 mask 与 wrap 是 ant-modal-root 内的同级，
+   通过 :has 选择含我们自定义类的容器，把它内部的 mask 也抬上来 */
+.ant-modal-root:has(> .grade-subject-modal-wrap) > .ant-modal-mask {
+  z-index: 10000 !important;
+}
+
+
+.full-modal {
+  .ant-modal {
+    max-width: 100%;
+    top: 0;
+  }
+  .ant-modal-content {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh);
+  }
+  .ant-modal-body {
+    flex: 1;
+  }
+}
+
+.border-radius{
+  border-radius:10px;
+}
+.card-body-container{
+  margin: -20px;
+}
+.card-body-container-lr{
+  margin-left: -20px;
+  margin-right: -20px;
+}
+.card-body-xs{
+  margin: -10px;
+}
+
+.card-body-padding-xs{
+  margin: -10px;
+}
+
+.border-radius-xs{
+  border-radius:4px;
+}
+.border-radius-sm{
+  border-radius:10px;
+}
