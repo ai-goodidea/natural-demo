@@ -1,0 +1,39 @@
+server:
+  port: 7001
+
+spring:
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: user-route
+          uri: lb://boot-user
+          predicates:
+            - Path=/user/**
+        - id: supplier-route
+          uri: lb://boot-supplier
+          predicates:
+            - Path=/supplier/**
+        - id: business-route
+          uri: lb://boot-business
+          predicates:
+            - Path=/business/**
+        - id: ai-route
+          uri: lb://boot-ai
+          predicates:
+            - Path=/ai/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
+
+logging:
+  level:
+    org.springframework.cloud.gateway: INFO
