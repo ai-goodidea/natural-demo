@@ -1,4 +1,4 @@
-package org.example.user.auth;
+﻿package org.example.user.auth;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -9,10 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.common.auth.AuthConstant;
 import org.example.common.auth.JwtPayload;
 import org.example.common.auth.JwtTokenProvider;
-import org.example.user.auth.dto.LoginRequest;
-import org.example.user.auth.dto.LoginResult;
-import org.example.user.auth.dto.UserInfoVO;
-import org.example.user.entity.User;
+import org.example.common.model.user.dto.LoginRequest;
+import org.example.common.model.user.vo.LoginResult;
+import org.example.common.model.user.vo.UserInfoVO;
+import org.example.common.model.user.entity.User;
 import org.example.user.mapper.UserMapper;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;

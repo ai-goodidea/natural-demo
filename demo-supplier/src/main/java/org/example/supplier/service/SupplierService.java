@@ -1,12 +1,12 @@
-package org.example.supplier.service;
+﻿package org.example.supplier.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.example.common.dto.PageResult;
 import org.example.common.entity.PageQuery;
-import org.example.supplier.dto.SupplierCreateRequest;
-import org.example.supplier.dto.SupplierUpdateRequest;
-import org.example.supplier.dto.SupplierVO;
-import org.example.supplier.entity.Supplier;
+import org.example.common.model.supplier.dto.SupplierCreateRequest;
+import org.example.common.model.supplier.dto.SupplierUpdateRequest;
+import org.example.common.model.supplier.vo.SupplierVO;
+import org.example.common.model.supplier.entity.Supplier;
 
 public interface SupplierService extends IService<Supplier> {
 

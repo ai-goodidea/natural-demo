@@ -49,21 +49,23 @@ import {
   statusColor,
   statusLabel,
 } from './constants';
+import SupplierSelect from './supplier-select.vue';
 
 defineOptions({ name: 'AcceptanceDetail' });
 
 const route = useRoute();
 const router = useRouter();
-const id = ref<number | undefined>(
-  route.params.id ? Number(route.params.id) : undefined,
+const id = ref<number | string | undefined>(
+  route.params.id ? String(route.params.id) : undefined,
 );
 const isNew = computed(() => !id.value);
 
 const loading = ref(false);
 const aiLoading = ref(false);
 const form = reactive({
-  id: undefined as number | undefined,
+  id: undefined as number | string | undefined,
   orderNo: '',
+  supplierId: undefined as number | string | undefined,
   supplierName: '',
   arrivalDate: '',
   inspectorName: '',
@@ -272,7 +274,11 @@ const itemColumns = [
             </Col>
             <Col :span="8">
               <FormItem label="供应商">
-                <Input v-model:value="form.supplierName" placeholder="供应商名称" />
+                <SupplierSelect
+                  v-model:value="form.supplierId"
+                  v-model:name="form.supplierName"
+                  :disabled="!editable"
+                />
               </FormItem>
             </Col>
             <Col :span="5">

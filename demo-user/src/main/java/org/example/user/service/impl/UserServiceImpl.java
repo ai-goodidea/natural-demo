@@ -1,4 +1,4 @@
-package org.example.user.service.impl;
+﻿package org.example.user.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -9,10 +9,10 @@ import org.example.common.entity.PageQuery;
 import org.example.common.exception.BusinessException;
 import org.example.common.result.ResultCode;
 import org.example.user.dto.UserConverter;
-import org.example.user.dto.UserCreateRequest;
-import org.example.user.dto.UserUpdateRequest;
-import org.example.user.dto.UserVO;
-import org.example.user.entity.User;
+import org.example.common.model.user.dto.UserCreateRequest;
+import org.example.common.model.user.dto.UserUpdateRequest;
+import org.example.common.model.user.vo.UserVO;
+import org.example.common.model.user.entity.User;
 import org.example.user.mapper.UserMapper;
 import org.example.user.service.UserService;
 import org.springframework.stereotype.Service;

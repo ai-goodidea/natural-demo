@@ -1,12 +1,12 @@
-package org.example.business.acceptance.service;
+﻿package org.example.business.acceptance.service;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.RequiredArgsConstructor;
-import org.example.business.acceptance.dto.DeviceTypeStatsVO;
-import org.example.business.acceptance.dto.SupplierStatsVO;
-import org.example.business.acceptance.entity.Acceptance;
-import org.example.business.acceptance.entity.AcceptanceItem;
+import org.example.common.model.acceptance.vo.DeviceTypeStatsVO;
+import org.example.common.model.acceptance.vo.SupplierStatsVO;
+import org.example.common.model.acceptance.entity.Acceptance;
+import org.example.common.model.acceptance.entity.AcceptanceItem;
 import org.example.business.mapper.AcceptanceItemMapper;
 import org.example.business.mapper.AcceptanceMapper;
 import org.springframework.stereotype.Service;

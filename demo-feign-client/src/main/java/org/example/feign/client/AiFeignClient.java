@@ -1,8 +1,8 @@
-package org.example.feign.client;
+﻿package org.example.feign.client;
 
 import org.example.common.result.Result;
-import org.example.feign.dto.AcceptanceSummaryRequest;
-import org.example.feign.dto.AcceptanceSummaryResult;
+import org.example.common.model.acceptance.dto.AcceptanceSummaryRequest;
+import org.example.common.model.acceptance.vo.AcceptanceSummaryResult;
 import org.example.feign.fallback.AiFeignFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;

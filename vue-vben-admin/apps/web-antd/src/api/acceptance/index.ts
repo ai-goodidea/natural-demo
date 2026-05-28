@@ -1,8 +1,10 @@
+import { useAccessStore } from '@vben/stores';
+
 import { requestClient } from '#/api/request';
 
 export interface AcceptanceItem {
-  id?: number;
-  acceptanceId?: number;
+  id?: number | string;
+  acceptanceId?: number | string;
   deviceCode: string;
   deviceName: string;
   deviceType?: string;
@@ -14,12 +16,12 @@ export interface AcceptanceItem {
 }
 
 export interface AcceptanceHead {
-  id?: number;
+  id?: number | string;
   orderNo: string;
-  supplierId?: number;
+  supplierId?: number | string;
   supplierName?: string;
   arrivalDate?: string;
-  inspectorId?: number;
+  inspectorId?: number | string;
   inspectorName?: string;
   status?: string;
   remark?: string;
@@ -29,8 +31,8 @@ export interface AcceptanceHead {
 }
 
 export interface Rectification {
-  id?: number;
-  acceptanceId: number;
+  id?: number | string;
+  acceptanceId: number | string;
   content: string;
   owner?: string;
   deadline?: string;
@@ -72,7 +74,7 @@ export function pageAcceptance(params: {
   );
 }
 
-export function getAcceptance(id: number) {
+export function getAcceptance(id: number | string) {
   return requestClient.get<AcceptanceVO>(`/business/acceptance/${id}`);
 }
 
@@ -84,11 +86,11 @@ export function updateAcceptance(payload: any) {
   return requestClient.put<AcceptanceVO>('/business/acceptance', payload);
 }
 
-export function deleteAcceptance(id: number) {
+export function deleteAcceptance(id: number | string) {
   return requestClient.delete<void>(`/business/acceptance/${id}`);
 }
 
-export function changeAcceptanceStatus(id: number, payload: {
+export function changeAcceptanceStatus(id: number | string, payload: {
   newStatus: string;
   rectificationContent?: string;
   rectificationOwner?: string;
@@ -100,24 +102,71 @@ export function changeAcceptanceStatus(id: number, payload: {
   );
 }
 
-export function aiSummarize(id: number) {
+export function aiSummarize(id: number | string) {
   return requestClient.post<AcceptanceSummary>(
     `/business/acceptance/${id}/ai-summary`,
   );
 }
 
-export function saveSummary(id: number, payload: AcceptanceSummary) {
+export function saveSummary(id: number | string, payload: AcceptanceSummary) {
   return requestClient.post<AcceptanceVO>(
     `/business/acceptance/${id}/save-summary`,
     payload,
   );
 }
 
-export function getAcceptanceLogs(id: number) {
+export function getAcceptanceLogs(id: number | string) {
   return requestClient.get<any[]>(`/business/acceptance/${id}/logs`);
 }
 
-export function exportAcceptanceExcelUrl() {
-  // 直接通过 location 触发下载即可；需 token 时改用 fetch + blob
-  return '/api/business/acceptance/export';
+export interface AcceptanceExportQuery {
+  orderNo?: string;
+  supplierName?: string;
+  status?: string;
+}
+
+/**
+ * 导出验收单 Excel（含验收单头信息与明细行）。
+ * 使用 fetch 携带 Bearer Token，与列表查询条件一致；返回 Blob 以便前端触发下载。
+ */
+export async function exportAcceptanceExcel(
+  params: AcceptanceExportQuery = {},
+): Promise<Blob> {
+  const accessStore = useAccessStore();
+  const token = accessStore.accessToken;
+  const baseURL =
+    (import.meta.env.VITE_GLOB_API_URL as string | undefined) ?? '/api';
+  const search = new URLSearchParams();
+  Object.entries(params).forEach(([k, v]) => {
+    if (v !== undefined && v !== null && v !== '') {
+      search.append(k, String(v));
+    }
+  });
+  const qs = search.toString();
+  const url = `${baseURL.replace(/\/$/, '')}/business/acceptance/export${
+    qs ? `?${qs}` : ''
+  }`;
+
+  const resp = await fetch(url, {
+    method: 'GET',
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+  });
+  if (!resp.ok) {
+    throw new Error(`导出失败：HTTP ${resp.status}`);
+  }
+  return resp.blob();
+}
+
+/**
+ * 把后端响应的 Blob 触发为浏览器下载。
+ */
+export function triggerDownload(blob: Blob, filename: string) {
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.append(a);
+  a.click();
+  a.remove();
+  window.URL.revokeObjectURL(url);
 }

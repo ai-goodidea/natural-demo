@@ -1,10 +1,10 @@
-package org.example.feign.fallback;
+﻿package org.example.feign.fallback;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.common.result.Result;
 import org.example.feign.client.AiFeignClient;
-import org.example.feign.dto.AcceptanceSummaryRequest;
-import org.example.feign.dto.AcceptanceSummaryResult;
+import org.example.common.model.acceptance.dto.AcceptanceSummaryRequest;
+import org.example.common.model.acceptance.vo.AcceptanceSummaryResult;
 import org.springframework.stereotype.Component;
 
 @Slf4j

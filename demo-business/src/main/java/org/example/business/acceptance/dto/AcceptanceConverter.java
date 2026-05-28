@@ -1,10 +1,14 @@
 package org.example.business.acceptance.dto;
 
 import cn.hutool.core.bean.BeanUtil;
-import org.example.business.acceptance.entity.Acceptance;
-import org.example.business.acceptance.entity.AcceptanceItem;
-import org.example.business.acceptance.entity.OperationLog;
-import org.example.business.acceptance.entity.Rectification;
+import org.example.common.model.acceptance.entity.Acceptance;
+import org.example.common.model.acceptance.entity.AcceptanceItem;
+import org.example.common.model.acceptance.entity.OperationLog;
+import org.example.common.model.acceptance.entity.Rectification;
+import org.example.common.model.acceptance.vo.AcceptanceHeadVO;
+import org.example.common.model.acceptance.vo.AcceptanceItemVO;
+import org.example.common.model.acceptance.vo.OperationLogVO;
+import org.example.common.model.acceptance.vo.RectificationVO;
 
 public final class AcceptanceConverter {
 

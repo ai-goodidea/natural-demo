@@ -174,8 +174,12 @@ function confirmDelete(row: any) {
     title: '删除供应商',
     content: `确认删除 ${row.name} (${row.code}) 吗？`,
     onOk: async () => {
-      await deleteSupplier(row.id!);
-      message.success('已删除');
+      const ok = await deleteSupplier(row.id!);
+      if (ok === false) {
+        message.error('删除失败，记录可能已不存在');
+      } else {
+        message.success('已删除');
+      }
       load();
     },
   });
@@ -226,8 +230,7 @@ function confirmDelete(row: any) {
             <Space>
               <a class="vben-link" @click="openEdit(record)">编辑</a>
               <a
-                class="vben-link"
-                style="color: var(--ant-color-error)"
+                class="text-destructive hover:text-destructive cursor-pointer"
                 @click="confirmDelete(record)"
               >删除</a>
             </Space>

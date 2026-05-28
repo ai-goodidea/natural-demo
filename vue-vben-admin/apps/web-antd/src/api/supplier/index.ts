@@ -1,7 +1,7 @@
 import { requestClient } from '#/api/request';
 
 export interface Supplier {
-  id?: number;
+  id?: number | string;
   code: string;
   name: string;
   contact?: string;
@@ -29,7 +29,7 @@ export function pageSupplier(params: {
   return requestClient.get<SupplierPageResp>('/supplier/page', { params });
 }
 
-export function getSupplier(id: number) {
+export function getSupplier(id: number | string) {
   return requestClient.get<Supplier>(`/supplier/${id}`);
 }
 
@@ -41,6 +41,6 @@ export function updateSupplier(payload: Supplier) {
   return requestClient.put<Supplier>('/supplier', payload);
 }
 
-export function deleteSupplier(id: number) {
+export function deleteSupplier(id: number | string) {
   return requestClient.delete<boolean>(`/supplier/${id}`);
 }

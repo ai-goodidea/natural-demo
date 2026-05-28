@@ -1,10 +1,10 @@
-package org.example.business.acceptance.service;
+﻿package org.example.business.acceptance.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.RequiredArgsConstructor;
 import org.example.business.acceptance.dto.AcceptanceConverter;
-import org.example.business.acceptance.dto.OperationLogVO;
-import org.example.business.acceptance.entity.OperationLog;
+import org.example.common.model.acceptance.vo.OperationLogVO;
+import org.example.common.model.acceptance.entity.OperationLog;
 import org.example.business.mapper.OperationLogMapper;
 import org.example.common.auth.UserContextHolder;
 import org.example.common.log.OperationLogEntry;

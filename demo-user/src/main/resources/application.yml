@@ -34,3 +34,10 @@ management:
     web:
       exposure:
         include: health,info
+
+# Swagger / OpenAPI —— 给文档端点加 /user 前缀，便于 gateway 透传聚合
+springdoc:
+  api-docs:
+    path: /user/v3/api-docs
+  swagger-ui:
+    path: /user/swagger-ui.html

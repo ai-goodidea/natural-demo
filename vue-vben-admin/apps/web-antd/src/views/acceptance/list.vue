@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue';
-import { useRouter } from 'vue-router';
 
 import { Page } from '@vben/common-ui';
 
@@ -34,10 +33,11 @@ import {
 import {
   createAcceptance,
   deleteAcceptance,
-  exportAcceptanceExcelUrl,
+  exportAcceptanceExcel,
   getAcceptance,
   getAcceptanceLogs,
   pageAcceptance,
+  triggerDownload,
 } from '#/api';
 import {
   isFinalStatus,
@@ -49,10 +49,10 @@ import {
   statusLabel,
 } from './constants';
 import EditDrawer from './edit-drawer.vue';
+import SupplierSelect from './supplier-select.vue';
 
 defineOptions({ name: 'AcceptanceList' });
 
-const router = useRouter();
 const loading = ref(false);
 const dataSource = ref<any[]>([]);
 const pagination = reactive({
@@ -114,13 +114,9 @@ function onPageChange(p: any) {
   load();
 }
 
-function gotoDetail(id: number) {
-  router.push({ path: `/acceptance/detail/${id}` });
-}
-
 // ---- 编辑抽屉 ----
 const editDrawerVisible = ref(false);
-const editingId = ref<number | undefined>(undefined);
+const editingId = ref<number | string | undefined>(undefined);
 function openEdit(row: any) {
   editingId.value = row.id;
   editDrawerVisible.value = true;
@@ -192,11 +188,27 @@ function confirmDelete(row: any) {
   });
 }
 
-function doExport() {
-  const a = document.createElement('a');
-  a.href = exportAcceptanceExcelUrl();
-  a.target = '_blank';
-  a.click();
+const exporting = ref(false);
+async function doExport() {
+  exporting.value = true;
+  try {
+    const blob = await exportAcceptanceExcel({
+      orderNo: query.orderNo || undefined,
+      supplierName: query.supplierName || undefined,
+      status: query.status,
+    });
+    const ts = new Date()
+      .toISOString()
+      .replace(/[-:]/g, '')
+      .replace('T', '_')
+      .slice(0, 15);
+    triggerDownload(blob, `验收记录_${ts}.xlsx`);
+    message.success('导出成功');
+  } catch (e: any) {
+    message.error(e?.message ?? '导出失败');
+  } finally {
+    exporting.value = false;
+  }
 }
 
 // ---- 新建验收单抽屉 ----
@@ -204,6 +216,7 @@ const drawerVisible = ref(false);
 const submitting = ref(false);
 const createForm = reactive({
   orderNo: '',
+  supplierId: undefined as number | string | undefined,
   supplierName: '',
   arrivalDate: '',
   inspectorName: '',
@@ -227,6 +240,7 @@ function emptyItem() {
 function openCreate() {
   Object.assign(createForm, {
     orderNo: '',
+    supplierId: undefined,
     supplierName: '',
     arrivalDate: '',
     inspectorName: '',
@@ -265,20 +279,10 @@ async function submitCreate() {
       status: 'PENDING',
       items: createItems.value,
     };
-    const res = await createAcceptance(payload);
+    await createAcceptance(payload);
     message.success('已创建验收单');
     drawerVisible.value = false;
     load();
-    // 创建后可选择继续完善：跳到详情页处理状态流转 / AI 摘要
-    if (res?.head?.id) {
-      Modal.confirm({
-        title: '继续完善验收单？',
-        content: '可前往详情页处理状态流转、AI 摘要、整改等。',
-        okText: '前往详情',
-        cancelText: '稍后再说',
-        onOk: () => gotoDetail(res.head.id!),
-      });
-    }
   } finally {
     submitting.value = false;
   }
@@ -291,7 +295,7 @@ async function submitCreate() {
       <template #extra>
         <Space>
           <Button type="primary" @click="openCreate">新建验收单</Button>
-          <Button @click="doExport">导出 Excel</Button>
+          <Button :loading="exporting" @click="doExport">导出 Excel</Button>
         </Space>
       </template>
 
@@ -342,8 +346,7 @@ async function submitCreate() {
               >编辑</a>
               <a
                 v-if="!isFinalStatus(record.status)"
-                class="vben-link"
-                style="color: var(--ant-color-error)"
+                class="text-destructive hover:text-destructive cursor-pointer"
                 @click="confirmDelete(record)"
               >删除</a>
             </Space>
@@ -368,7 +371,10 @@ async function submitCreate() {
           </Col>
           <Col :span="8">
             <FormItem label="供应商">
-              <Input v-model:value="createForm.supplierName" placeholder="供应商名称" />
+              <SupplierSelect
+                v-model:value="createForm.supplierId"
+                v-model:name="createForm.supplierName"
+              />
             </FormItem>
           </Col>
           <Col :span="8">
@@ -435,8 +441,7 @@ async function submitCreate() {
           </template>
           <template v-else-if="column.dataIndex === 'op'">
             <a
-              class="vben-link"
-              style="color: var(--ant-color-error)"
+              class="text-destructive hover:text-destructive cursor-pointer"
               @click="removeItem(index)"
             >删除</a>
           </template>

@@ -17,3 +17,9 @@ management:
     web:
       exposure:
         include: health,info
+
+springdoc:
+  api-docs:
+    path: /ai/v3/api-docs
+  swagger-ui:
+    path: /ai/swagger-ui.html

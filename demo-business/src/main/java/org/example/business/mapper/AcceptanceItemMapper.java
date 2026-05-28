@@ -1,8 +1,8 @@
-package org.example.business.mapper;
+﻿package org.example.business.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-import org.example.business.acceptance.entity.AcceptanceItem;
+import org.example.common.model.acceptance.entity.AcceptanceItem;
 
 @Mapper
 public interface AcceptanceItemMapper extends BaseMapper<AcceptanceItem> {

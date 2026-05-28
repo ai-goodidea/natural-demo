@@ -39,9 +39,32 @@ auth:
     secret: ${JWT_SECRET:natural-demo-jwt-secret-key-please-replace-me-32+chars}
     ttl-seconds: 86400
   whitelist:
-    # 白名单：登录、健康检查、AI 流式（演示用）
+    # 白名单：登录、健康检查、Swagger 聚合（演示用）
     - /user/auth/login
     - /actuator/**
+    - /v3/api-docs/**
+    - /*/v3/api-docs/**
+    - /swagger-ui/**
+    - /swagger-ui.html
+    - /webjars/**
+    - /doc.html
+
+springdoc:
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    # 聚合下游服务的 OpenAPI 文档，前端 swagger-ui 顶部下拉切换
+    urls:
+      - name: boot-user
+        url: /user/v3/api-docs
+      - name: boot-supplier
+        url: /supplier/v3/api-docs
+      - name: boot-business
+        url: /business/v3/api-docs
+      - name: boot-ai
+        url: /ai/v3/api-docs
+  api-docs:
+    enabled: true
 
 management:
   endpoints:

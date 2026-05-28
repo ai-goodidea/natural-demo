@@ -39,6 +39,12 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- Swagger / OpenAPI annotations (供 entity/dto/vo 标注 @Schema 使用) -->
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations-jakarta</artifactId>
+        </dependency>
+
         <!-- JWT -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>

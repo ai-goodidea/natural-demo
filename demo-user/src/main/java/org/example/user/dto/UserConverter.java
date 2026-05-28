@@ -1,7 +1,10 @@
 package org.example.user.dto;
 
 import cn.hutool.core.bean.BeanUtil;
-import org.example.user.entity.User;
+import org.example.common.model.user.dto.UserCreateRequest;
+import org.example.common.model.user.dto.UserUpdateRequest;
+import org.example.common.model.user.entity.User;
+import org.example.common.model.user.vo.UserVO;
 
 public final class UserConverter {
 

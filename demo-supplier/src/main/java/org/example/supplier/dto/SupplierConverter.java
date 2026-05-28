@@ -1,7 +1,10 @@
 package org.example.supplier.dto;
 
 import cn.hutool.core.bean.BeanUtil;
-import org.example.supplier.entity.Supplier;
+import org.example.common.model.supplier.dto.SupplierCreateRequest;
+import org.example.common.model.supplier.dto.SupplierUpdateRequest;
+import org.example.common.model.supplier.entity.Supplier;
+import org.example.common.model.supplier.vo.SupplierVO;
 
 public final class SupplierConverter {
 

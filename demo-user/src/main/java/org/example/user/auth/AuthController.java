@@ -1,20 +1,23 @@
 package org.example.user.auth;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.common.auth.AuthConstant;
 import org.example.common.auth.UserContextHolder;
 import org.example.common.exception.BusinessException;
+import org.example.common.model.user.dto.LoginRequest;
+import org.example.common.model.user.vo.LoginResult;
+import org.example.common.model.user.vo.UserInfoVO;
 import org.example.common.result.Result;
 import org.example.common.result.ResultCode;
-import org.example.user.auth.dto.LoginRequest;
-import org.example.user.auth.dto.LoginResult;
-import org.example.user.auth.dto.UserInfoVO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "认证授权", description = "登录、登出、用户信息查询")
 @RestController
 @RequestMapping("/user/auth")
 @RequiredArgsConstructor
@@ -22,15 +25,14 @@ public class AuthController {
 
     private final AuthService authService;
 
+    @Operation(summary = "登录并签发 JWT")
     @PostMapping("/login")
     public Result<LoginResult> login(@Valid @RequestBody LoginRequest req) {
         return Result.success(authService.login(req));
     }
 
-    /**
-     * 通过网关注入的 X-User-Id 查用户信息（来自 redis / DB）。
-     * 这样保证 token 失效后 redis 里没数据 → userinfo 直接 401，让前端走重新登录。
-     */
+    @Operation(summary = "获取当前用户信息",
+            description = "通过网关注入的 X-User-Id 查用户信息（来自 redis / DB）。token 失效后 redis 无数据 → 直接 401，前端走重新登录。")
     @GetMapping("/userinfo")
     public Result<UserInfoVO> userinfo(HttpServletRequest req) {
         String token = extractToken(req);
@@ -49,21 +51,22 @@ public class AuthController {
         return Result.success(fresh);
     }
 
+    @Operation(summary = "登出（清除 redis token）")
     @PostMapping("/logout")
     public Result<Void> logout(HttpServletRequest req) {
         authService.logout(extractToken(req));
         return Result.success();
     }
 
+    @Operation(summary = "获取当前用户的权限码列表")
     @GetMapping("/codes")
     public Result<List<String>> codes() {
         return Result.success(authService.codes(UserContextHolder.get().getRoles()));
     }
 
-    /** 静态菜单 —— vben 期望 /menu/all，gateway 路由 /user/menu 给这里 */
+    @Operation(summary = "获取后端动态菜单（demo：返回空，由前端走静态路由）")
     @GetMapping("/menu")
     public Result<List<Object>> menu() {
-        // 菜单走前端静态路由，这里返回空数组；vben 在没远端菜单时会用静态路由
         return Result.success(List.of());
     }
 

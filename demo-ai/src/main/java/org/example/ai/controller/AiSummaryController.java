@@ -1,12 +1,14 @@
-package org.example.ai.controller;
+﻿package org.example.ai.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.common.exception.BusinessException;
+import org.example.common.model.acceptance.dto.AcceptanceSummaryRequest;
+import org.example.common.model.acceptance.vo.AcceptanceSummaryResult;
 import org.example.common.result.Result;
-import org.example.feign.dto.AcceptanceSummaryRequest;
-import org.example.feign.dto.AcceptanceSummaryResult;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +26,7 @@ import java.util.concurrent.TimeoutException;
  * 通过 Spring AI 的 ChatClient 调用 OpenAI 兼容协议（默认走 DeepSeek，可在 application.yml 中替换）。
  */
 @Slf4j
+@Tag(name = "AI 验收摘要", description = "把验收单原始记录交给大模型，提炼出结构化验收结论")
 @RestController
 @RequestMapping("/ai/summary")
 @RequiredArgsConstructor
@@ -49,6 +52,7 @@ public class AiSummaryController {
     private final ChatClient chatClient;
     private final ObjectMapper objectMapper;
 
+    @Operation(summary = "生成验收摘要", description = "25 秒硬超时，超时返回 504")
     @PostMapping("/acceptance")
     public Result<AcceptanceSummaryResult> summarize(@RequestBody AcceptanceSummaryRequest req) {
         String userPrompt = buildUserPrompt(req);

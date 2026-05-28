@@ -42,11 +42,12 @@ import {
   statusColor,
   statusLabel,
 } from './constants';
+import SupplierSelect from './supplier-select.vue';
 
 defineOptions({ name: 'AcceptanceEditDrawer' });
 
 const props = defineProps<{
-  id?: number;
+  id?: number | string;
   open: boolean;
 }>();
 const emit = defineEmits<{
@@ -57,8 +58,9 @@ const emit = defineEmits<{
 const loading = ref(false);
 const aiLoading = ref(false);
 const form = reactive({
-  id: undefined as number | undefined,
+  id: undefined as number | string | undefined,
   orderNo: '',
+  supplierId: undefined as number | string | undefined,
   supplierName: '',
   arrivalDate: '',
   inspectorName: '',
@@ -93,6 +95,7 @@ function resetState() {
   Object.assign(form, {
     id: undefined,
     orderNo: '',
+    supplierId: undefined,
     supplierName: '',
     arrivalDate: '',
     inspectorName: '',
@@ -303,7 +306,11 @@ const itemColumns = [
           </Col>
           <Col :span="8">
             <FormItem label="供应商">
-              <Input v-model:value="form.supplierName" placeholder="供应商名称" />
+              <SupplierSelect
+                v-model:value="form.supplierId"
+                v-model:name="form.supplierName"
+                :disabled="!editable"
+              />
             </FormItem>
           </Col>
           <Col :span="5">
@@ -389,8 +396,7 @@ const itemColumns = [
           <template v-else-if="column.dataIndex === 'op'">
             <a
               v-if="editable"
-              class="vben-link"
-              style="color: var(--ant-color-error)"
+              class="text-destructive hover:text-destructive cursor-pointer"
               @click="removeItem(index)"
             >删除</a>
           </template>
